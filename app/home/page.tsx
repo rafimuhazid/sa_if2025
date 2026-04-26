@@ -67,29 +67,21 @@ export default function HomePage() {
       <div className="z-10 w-full max-w-md px-4 flex flex-col gap-6 mt-16">
         
         {/* TITLE CARD */}
-        <motion.div
-          initial={{ opacity: 0, y: 40 }}
-          animate={{ opacity: 1, y: 0 }}
-          className="rounded-3xl p-6 border text-center"
-          style={{
-            borderColor: lime,
-            boxShadow: "0 0 20px rgba(163,255,18,0.3)",
-          }}
-        >
-          <h1
-            className="text-3xl font-extrabold"
-            style={{
-              color: lime,
-              textShadow: "0 0 20px rgba(163,255,18,0.6)",
-            }}
-          >
-            Vidya Sambandha
-          </h1>
-
-          <p className="text-xs mt-2 text-white/60">
-            MENJALIN SILATURAHMI, MENYATUKAN LANGKAH UNTUK BERSAMA BERKARYA
-          </p>
-        </motion.div>
+      <motion.div
+        initial={{ opacity: 0, y: 40 }}
+        animate={{ opacity: 1, y: 0 }}
+        className="rounded-3xl border flex justify-center items-center"
+        style={{
+          borderColor: lime,
+          boxShadow: "0 0 20px rgba(163,255,18,0.3)",
+        }}
+      >
+        <img
+          src="/img/vidya.png"
+          alt="Vidya Sambandha"
+          className="w-full"
+        />
+      </motion.div>
 
         {/* MENU */}
         <MenuCard
