@@ -3,6 +3,11 @@
 import BottomNav from "../components/BottomNav";
 import { motion } from "framer-motion";
 import { useRouter } from "next/navigation";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { 
+  faCircleDollarToSlot, 
+  faCalendarDays 
+} from "@fortawesome/free-solid-svg-icons";
 
 export default function HomePage() {
   const lime = "#A3FF12";
@@ -23,7 +28,8 @@ export default function HomePage() {
           className="w-12 h-12 rounded-xl flex items-center justify-center border-2"
           style={{ borderColor: lime }}
         >
-          <span className="text-xl">{icon}</span>
+          {/* ICON DENGAN FONT AWESOME */}
+          <FontAwesomeIcon icon={icon} style={{ color: lime }} className="text-xl" />
         </div>
 
         <div>
@@ -73,7 +79,7 @@ export default function HomePage() {
           <img src="/img/vidya.png" className="w-full h-auto object-cover" />
         </motion.div>
 
-        {/* MENU SECTION TITLE (OPSIONAL UNTUK MEMPERTEGAS GAYA) */}
+        {/* MENU SECTION TITLE */}
         <p className="text-[10px] font-black tracking-[0.2em] text-white/40 px-2 uppercase">
           Navigation Menu
         </p>
@@ -83,14 +89,14 @@ export default function HomePage() {
           <MenuCard
             title="FUND TRANSPARENCY"
             desc="Track event budget & expenses"
-            icon="💲"
+            icon={faCircleDollarToSlot}
             link="/fund"
           />
 
           <MenuCard
             title="EVENT RUNDOWN"
             desc="Check event schedules & timeline"
-            icon="📅"
+            icon={faCalendarDays}
             link="/rundown"
           />
         </div>

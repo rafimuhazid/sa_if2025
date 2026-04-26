@@ -1,6 +1,8 @@
 "use client";
 
 import BottomNav from "../components/BottomNav";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faCamera } from "@fortawesome/free-solid-svg-icons";
 
 export default function ScanPage() {
   const lime = "#A3FF12";
@@ -28,13 +30,13 @@ export default function ScanPage() {
         }}
       >
 
-        {/* ICON */}
+        {/* ICON - FONT AWESOME */}
         <div className="flex justify-center mb-4">
           <div
             className="w-14 h-14 rounded-full border flex items-center justify-center text-xl"
             style={{ borderColor: lime }}
           >
-            📷
+            <FontAwesomeIcon icon={faCamera} style={{ color: lime }} />
           </div>
         </div>
 
