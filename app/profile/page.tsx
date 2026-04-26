@@ -32,62 +32,62 @@ export default function ProfilePage() {
       {/* CONTENT */}
       <div className="relative z-10 pt-16 flex flex-col items-center">
 
-        {/* FOTO PROFILE (DISPLAY SAJA) */}
-        <img
-          src="/img/profile.png"
-          alt="Profile"
-          className="w-28 h-28 rounded-full object-cover border-2"
-          style={{
-            borderColor: lime,
-            boxShadow: "0 0 20px rgba(163,255,18,0.6)",
-          }}
-        />
+        {/* FOTO PROFILE */}
+        <div className="relative">
+          <img
+            src="/img/profile.png"
+            alt="Profile"
+            className="w-28 h-28 rounded-full object-cover border-2"
+            style={{
+              borderColor: lime,
+              boxShadow: "0 0 20px rgba(163,255,18,0.6)",
+            }}
+          />
+        </div>
 
-        {/* NAME */}
-        <div className="flex items-center gap-2 mt-4">
+        {/* NAME: */}
+        <div className="flex items-center gap-2 mt-6 uppercase">
           <FontAwesomeIcon icon={faUser} color={lime} />
-          <h2 style={{ color: lime }} className="text-lg font-bold">
+          <h2 style={{ color: lime }} className="text-xl font-black tracking-tight">
             WILSON LOSIENTO
           </h2>
         </div>
 
-        {/* EDIT BUTTON (PINDAH KE HALAMAN EDIT) */}
+        {/* EDIT BUTTON: */}
         <button
           onClick={() => router.push("/profile/edit")}
-          className="mt-2 px-4 py-2 rounded-full text-black font-semibold cursor-pointer"
+          className="mt-3 px-6 py-2 rounded-full text-black font-black text-xs tracking-widest cursor-pointer uppercase transition-transform active:scale-95"
           style={{ backgroundColor: lime }}
         >
           EDIT PROFILE
         </button>
 
-        <div className="mt-6 w-full max-w-md px-4">
+        <div className="mt-8 w-full max-w-md px-4">
 
-          {/* CARD */}
+          {/* CARD INFO */}
           <div
-            className="p-5 rounded-2xl border backdrop-blur-xl bg-black/40 space-y-3"
+            className="p-6 rounded-[2rem] border-2 backdrop-blur-xl bg-black/40 space-y-4"
             style={{ borderColor: lime }}
           >
-
-            <div className="flex items-center gap-3">
-              <FontAwesomeIcon icon={faEnvelope} color={lime} />
-              <p>Email: alex.johnson@email.com</p>
+            <div className="flex items-center gap-4 text-xs font-bold tracking-wide">
+              <FontAwesomeIcon icon={faEnvelope} color={lime} className="text-base" />
+              <p><span className="opacity-60"></span> alex.johnson@email.com</p>
             </div>
 
-            <div className="flex items-center gap-3">
-              <FontAwesomeIcon icon={faPhone} color={lime} />
-              <p>Phone: +1 555 123</p>
+            <div className="flex items-center gap-4 text-xs font-bold uppercase tracking-wide">
+              <FontAwesomeIcon icon={faPhone} color={lime} className="text-base" />
+              <p><span className="opacity-60"></span> +1 555 123</p>
             </div>
 
-            <div className="flex items-center gap-3">
-              <FontAwesomeIcon icon={faCalendar} color={lime} />
-              <p>Academic Year: 2025/2026</p>
+            <div className="flex items-center gap-4 text-xs font-bold tracking-wide">
+              <FontAwesomeIcon icon={faCalendar} color={lime} className="text-base" />
+              <p><span className="opacity-60"></span> 2025/2026</p>
             </div>
-
           </div>
 
           {/* SIGN OUT */}
           <button
-            className="w-full mt-4 py-3 border rounded-xl flex items-center justify-center gap-2 cursor-pointer"
+            className="w-full mt-6 py-4 border-2 rounded-2xl flex items-center justify-center gap-3 cursor-pointer font-black text-sm tracking-[0.2em] uppercase transition-all active:bg-lime-400/10"
             style={{ borderColor: lime, color: lime }}
           >
             <FontAwesomeIcon icon={faRightFromBracket} />
