@@ -49,7 +49,7 @@ export default function BottomNav() {
         {/* CERTIFICATE */}
         <Item Icon={FileText} route="/certificate" />
 
-        {/* SCAN (TENGAH) */}
+        {/* SCAN */}
         <div
           onClick={() => router.push("/scan")}
           className="w-14 h-14 mx-2 rounded-full flex items-center justify-center border cursor-pointer"

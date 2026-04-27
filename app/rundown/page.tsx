@@ -18,12 +18,10 @@ export default function RundownPage() {
       className="relative p-5 rounded-[1.5rem] border-2 mb-5 flex items-start"
       style={{
         borderColor: lime,
-        // Tetap pakai glow tipis agar garis hijau tidak mati di atas gambar
         boxShadow: "0 0 15px rgba(163,255,18,0.2)",
-        backgroundColor: "rgba(0,0,0,0.4)" // Overlay gelap tipis di dalam card supaya teks terbaca
+        backgroundColor: "rgba(0,0,0,0.4)" 
       }}
     >
-      {/* KIRI: IKON & JAM (Dibuat vertikal) */}
       <div className="flex flex-col items-center mr-5 min-w-[65px]">
         <div
           className="w-12 h-12 rounded-full border-2 flex items-center justify-center mb-1"
@@ -36,7 +34,7 @@ export default function RundownPage() {
         </span>
       </div>
 
-      {/* KANAN: ISI KONTEN */}
+      {/* ISI KONTEN */}
       <div className="flex-1 pt-1">
         <p
           className="text-[15px] font-black mb-3 leading-tight italic"
@@ -77,7 +75,7 @@ export default function RundownPage() {
 
   return (
     <main className="relative min-h-screen text-white pb-28 overflow-hidden">
-      {/* BACKGROUND IMAGE ANDA */}
+      {/* BACKGROUND IMAGE */}
       <div
         className="absolute inset-0 z-0"
         style={{

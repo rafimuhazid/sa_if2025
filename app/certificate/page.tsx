@@ -22,7 +22,7 @@ export default function CertificatePage() {
       {/* CONTENT */}
       <div className="relative z-10 w-full flex flex-col items-center pt-16">
 
-        {/* JUDUL: Diubah jadi font-black & uppercase */}
+        {/* JUDUL*/}
         <h1 className="text-2xl font-black mb-6 tracking-wider uppercase" style={{ color: lime }}>
           CERTIFICATE
         </h1>
@@ -32,15 +32,15 @@ export default function CertificatePage() {
           <div className="p-5 rounded-2xl border flex justify-between items-center backdrop-blur-md bg-black/40"
             style={{ borderColor: lime }}>
             <div>
-              {/* NAMA: Diubah jadi font-black & uppercase */}
+              {/*NAMA*/}
               <p style={{ color: lime }} className="font-black uppercase tracking-tight">
                 VIDYA SAMBHADA
               </p>
-              {/* TANGGAL: Diubah jadi font-bold */}
+              {/* TANGGAL*/}
               <p className="text-xs text-white/60 font-bold tracking-tighter">APRIL 25, 2026</p>
             </div>
 
-            {/* BUTTON: Diubah jadi font-black & uppercase */}
+            {/* BUTTON*/}
             <button className="px-4 py-2 rounded-full text-black font-black text-xs uppercase tracking-widest"
               style={{ backgroundColor: lime }}>
               DOWNLOAD

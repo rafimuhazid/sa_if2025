@@ -28,7 +28,6 @@ export default function HomePage() {
           className="w-12 h-12 rounded-xl flex items-center justify-center border-2"
           style={{ borderColor: lime }}
         >
-          {/* ICON DENGAN FONT AWESOME */}
           <FontAwesomeIcon icon={icon} style={{ color: lime }} className="text-xl" />
         </div>
 

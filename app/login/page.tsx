@@ -94,7 +94,7 @@ export default function LoginPage() {
             />
           </div>
 
-          {/* BUTTON LOGIN (FIXED CENTER) */}
+          {/* BUTTON LOGIN*/}
           <div className="flex justify-center mt-6">
   <motion.button
     whileHover={{ scale: 1.02 }}

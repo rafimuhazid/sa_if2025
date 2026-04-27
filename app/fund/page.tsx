@@ -14,7 +14,7 @@ export default function FundPage() {
   const lime = "#A3FF12";
   const router = useRouter();
 
-  // Komponen Card Transaksi yang bisa dipakai ulang
+  
   const TransactionCard = ({ division, date, amount }: any) => (
     <div
       className="p-5 rounded-[1.5rem] border-2 flex justify-between items-center bg-black/20 mb-4"

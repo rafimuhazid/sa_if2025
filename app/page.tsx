@@ -28,7 +28,7 @@ export default function LandingPage() {
   };
 
   const greenBase = "#96C15E";
-  const greenText = "#A3FF12"; // 🔥 diubah jadi lime neon
+  const greenText = "#A3FF12";
 
   return (
     <main
