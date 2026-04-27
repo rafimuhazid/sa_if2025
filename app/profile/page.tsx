@@ -205,7 +205,7 @@ export default function ProfilePage() {
 function Input({ label, name, value, onChange }: any) {
   return (
     <div className="mb-4">
-      <div className="p-[1.5px] rounded-full bg-[#A3FF12]/70 shadow-[0_0_10px_#A3FF12]">
+      <div className="p-[1.5px] rounded-full bg-[#A3FF12]/70">
         <div className="bg-black rounded-full px-4 py-2 flex justify-between items-center text-xs">
           <span className="text-white/50">{label}</span>
           <input
