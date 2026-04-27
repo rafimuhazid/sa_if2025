@@ -4,7 +4,7 @@ import { useState, useEffect } from "react";
 import { Html5Qrcode } from "html5-qrcode";
 import BottomNav from "../components/BottomNav";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faCamera, faChevronDown } from "@fortawesome/free-solid-svg-icons";
+import { faCamera } from "@fortawesome/free-solid-svg-icons";
 
 export default function ScanPage() {
   const lime = "#A3FF12";
@@ -13,44 +13,43 @@ export default function ScanPage() {
   const [scanResult, setScanResult] = useState("");
 
   useEffect(() => {
-    let html5QrCode: Html5Qrcode;
+    let scanner: Html5Qrcode;
 
     if (isScanning) {
-      html5QrCode = new Html5Qrcode("reader");
+      scanner = new Html5Qrcode("reader");
       
-      const config = { fps: 10, qrbox: { width: 200, height: 200 } };
+      const config = { 
+        fps: 10, 
+        qrbox: { width: 200, height: 200 } 
+      };
 
-      html5QrCode.start(
-        { facingMode: "environment" }, // Pakai kamera belakang HP
+      scanner.start(
+        { facingMode: "environment" },
         config,
-        (decodedText) => {
-          // JIKA BERHASIL SCAN
-          setScanResult(decodedText);
+        (text) => {
+          setScanResult(text);
           setStatus("success");
-          stopScanner(html5QrCode);
+          handleStop(scanner);
         },
-        (errorMessage) => {
-          // Error scanning biasanya diabaikan agar tidak log terus-menerus
+        () => {
+          // Silent failure saat mencari frame
         }
       ).catch((err) => {
-        console.error("Gagal nyalakan kamera:", err);
+        console.error("Camera Error:", err);
         setStatus("failed");
         setIsScanning(false);
       });
     }
 
     return () => {
-      if (html5QrCode) {
-        stopScanner(html5QrCode);
-      }
+      if (scanner) handleStop(scanner);
     };
   }, [isScanning]);
 
-  const stopScanner = (scanner: Html5Qrcode) => {
-    if (scanner && scanner.isScanning) {
-      scanner.stop().then(() => {
+  const handleStop = (instance: Html5Qrcode) => {
+    if (instance && instance.isScanning) {
+      instance.stop().then(() => {
         setIsScanning(false);
-        // Sembunyikan pop-up setelah 3 detik
         setTimeout(() => setStatus("idle"), 3000);
       });
     }
@@ -59,10 +58,10 @@ export default function ScanPage() {
   return (
     <main className="relative min-h-screen text-white flex items-center justify-center pb-28 overflow-hidden bg-black">
       
-      {/* BACKGROUND */}
+      {/* Background Layer */}
       <div className="absolute inset-0 bg-[url('/img/bg-texture.jpeg')] bg-cover bg-center opacity-30" />
 
-      {/* POP-UP SUCCESS/FAILED */}
+      {/* Notifikasi Status */}
       {status !== "idle" && (
         <div className="absolute top-10 z-50 animate-bounce">
           <div className="w-[300px] p-4 rounded-2xl flex flex-col items-center border-[1.5px] bg-black/90 backdrop-blur-md"
@@ -77,11 +76,11 @@ export default function ScanPage() {
         </div>
       )}
 
-      {/* CARD SCANNER */}
+      {/* Scanner Container */}
       <div className="relative z-10 w-[320px] p-8 rounded-[40px] text-center border-[1.5px] bg-black/60 backdrop-blur-xl"
            style={{ borderColor: `${lime}66` }}>
         
-        {/* ICON */}
+        {/* Header Icon */}
         <div className="flex justify-center mb-5">
           <div className="w-14 h-14 rounded-full border flex items-center justify-center shadow-[0_0_15px_#A3FF12]"
                style={{ borderColor: lime }}>
@@ -92,22 +91,20 @@ export default function ScanPage() {
         <h2 className="text-xl font-bold mb-1" style={{ color: lime }}>Scan Presence Code</h2>
         <p className="text-[11px] text-white/50 mb-8">Position the QR code within the frame</p>
 
-        {/* FRAME SCANNER */}
+        {/* Camera Viewport */}
         <div className="relative w-[220px] h-[220px] mx-auto mb-10 overflow-hidden rounded-lg bg-black">
-          {/* Kamera akan muncul di sini */}
           <div id="reader" className="w-full h-full"></div>
 
-          {/* Garis Animasi */}
+          {/* Scanning Line Animation */}
           {isScanning && (
             <div className="absolute left-0 w-full h-[2px] bg-[#A3FF12] shadow-[0_0_15px_#A3FF12] animate-scan z-20" />
           )}
           
-          {/* Pojok Frame */}
           <Corner pos="tl" /> <Corner pos="tr" />
           <Corner pos="bl" /> <Corner pos="br" />
         </div>
 
-        {/* BUTTON CONTROL */}
+        {/* Toggle Button */}
         <button
           onClick={() => setIsScanning(!isScanning)}
           className="w-full py-3.5 rounded-full font-black text-[10px] tracking-widest transition-all"
