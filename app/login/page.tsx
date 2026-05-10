@@ -10,9 +10,16 @@ const spaceGrotesk = Space_Grotesk({
   weight: ['300', '400', '500', '700'],
 });
 
+type UserData = {
+  id: string;
+  username: string;
+  role: 'SEKRETARIS' | 'PESERTA';
+  nama: string;
+};
+
 export default function LoginPage() {
   const router = useRouter();
-  
+
   const [npm, setNpm] = useState('');
   const [password, setPassword] = useState('');
   const [loading, setLoading] = useState(false);
@@ -25,46 +32,58 @@ export default function LoginPage() {
 
   const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
-    
-    // Validasi dasar
-    if (!npm || !password) {
-      setAlert({ message: 'Harap isi semua field!', type: 'error' });
+
+    if (!npm.trim() || !password.trim()) {
+      setAlert({ message: 'Harap isi semua kolom!', type: 'error' });
       return;
     }
 
     setLoading(true);
 
     try {
-      const response = await fetch('/api/login', {
+      const res = await fetch('/api/login', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ npm, password }),
+        body: JSON.stringify({ npm: npm.trim(), password }),
       });
 
-      const data = await response.json();
+      // Cek apakah response dari server berhasil
+      if (!res.ok) {
+        const errData = await res.json().catch(() => ({ message: 'Server error' }));
+        throw new Error(errData.message || 'Terjadi kesalahan dari server');
+      }
 
-      if (data.success) {
-        setAlert({ 
-          message: `Login Berhasil! Halo, ${data.user.name}`, 
-          type: 'success' 
+      const data = await res.json();
+
+      if (data.success && data.user) {
+        setAlert({
+          message: `Login Berhasil! Halo, ${data.user.nama}`,
+          type: 'success',
         });
 
         localStorage.setItem('userRole', data.user.role);
+        localStorage.setItem('userId', data.user.id);
+        localStorage.setItem('userNama', data.user.nama);
 
         setTimeout(() => {
-          if (data.user.role === 'admin') {
+          if (data.user.role === 'SEKRETARIS') {
             router.push('/admin');
           } else {
             router.push('/home');
           }
         }, 1500);
       } else {
-        setAlert({ message: data.message, type: 'error' });
-        setLoading(false);
+        setAlert({ message: data.message || 'Login gagal!', type: 'error' });
       }
-    } catch (error) {
-      setAlert({ message: 'Terjadi kesalahan koneksi!', type: 'error' });
-      setLoading(false);
+    } catch (err: any) {
+      console.error('Login Error:', err);
+      // Tampilkan pesan asli error, bukan hanya pesan umum
+      setAlert({
+        message: err.message || 'Terjadi kesalahan koneksi ke server!',
+        type: 'error',
+      });
+    } finally {
+      setLoading(false); // Pastikan loading mati di semua kondisi
     }
   };
 
@@ -76,7 +95,7 @@ export default function LoginPage() {
   }, [alert]);
 
   const handleNpmChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const value = e.target.value;
+    const value = e.target.value.replace(/[^0-9]/g, '');
     setNpm(value);
   };
 
@@ -84,7 +103,6 @@ export default function LoginPage() {
     <main
       className={`${spaceGrotesk.className} relative w-full h-screen flex items-center justify-center bg-[#080808] overflow-hidden`}
     >
-      {/* Background Texture */}
       <div
         className="absolute inset-0 z-0 pointer-events-none"
         style={{
@@ -95,7 +113,6 @@ export default function LoginPage() {
         }}
       />
 
-      {/* Alert Notification */}
       <AnimatePresence>
         {alert && (
           <motion.div
@@ -124,7 +141,6 @@ export default function LoginPage() {
         )}
       </AnimatePresence>
 
-      {/* Login Card */}
       <motion.div
         initial={{ scale: 0.9, opacity: 0 }}
         animate={{ scale: 1, opacity: 1 }}
@@ -150,6 +166,9 @@ export default function LoginPage() {
               onChange={handleNpmChange}
               className="w-full mt-1 p-4 rounded-xl bg-black/40 border border-[#A3FF12]/30 text-white outline-none focus:border-[#A3FF12] transition-colors"
               placeholder="Masukkan NPM"
+              disabled={loading}
+              type="text"
+              inputMode="numeric"
             />
           </div>
 
@@ -161,6 +180,7 @@ export default function LoginPage() {
               onChange={(e) => setPassword(e.target.value)}
               className="w-full mt-1 p-4 rounded-xl bg-black/40 border border-[#A3FF12]/30 text-white outline-none focus:border-[#A3FF12] transition-colors"
               placeholder="********"
+              disabled={loading}
             />
           </div>
 
